@@ -10,12 +10,12 @@ public class Main {
         System.out.println(flightList.toString());
 
         System.out.println("//Already flown");
-        System.out.println(FlightFilter.beforeNow(flightList).toString());
+        System.out.println((new FilterBeforeNow().filter(flightList)).toString());
 
         System.out.println("//Arrival before departure");
-        System.out.println(FlightFilter.arrivalBeforeDeparture(flightList).toString());
+        System.out.println((new FilterArrivalBeforeDeparture().filter(flightList)).toString());
 
         System.out.println("//Long time waiting");
-        System.out.println(FlightFilter.longTimeWaiting(flightList).toString());
+        System.out.println((new FilterLongTimeWaiting().filter(flightList)).toString());
     }
 }

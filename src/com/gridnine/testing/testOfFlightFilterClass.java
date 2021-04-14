@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testOfFlightFilter {
+public class testOfFlightFilterClass {
     private static LocalDateTime threeDaysFromNow;
 
     @BeforeClass
@@ -19,37 +19,41 @@ public class testOfFlightFilter {
     @Test
     public void testbeforeNow1() {
         Assert.assertEquals(new ArrayList<Flight>(),
-                FlightFilter.beforeNow(getSimpleFlightArray(threeDaysFromNow, threeDaysFromNow.plusHours(2))));
+                new FilterBeforeNow().filter(getSimpleFlightArray(threeDaysFromNow, threeDaysFromNow.plusHours(2))));
     }
 
     @Test
     public void testbeforeNow2() {
         List<Flight> flightList = getSimpleFlightArray(threeDaysFromNow.minusDays(5), threeDaysFromNow.plusHours(2));
-        Assert.assertArrayEquals(new List[]{flightList}, new List[]{FlightFilter.beforeNow(flightList)});
+        Assert.assertArrayEquals(new List[]{flightList}, new List[]{
+                new FilterBeforeNow().filter(flightList)});
     }
 
     @Test
     public void testArrivalBeforeDeparture1() {
         Assert.assertEquals(new ArrayList<Flight>(),
-                FlightFilter.arrivalBeforeDeparture(getSimpleFlightArray(threeDaysFromNow, threeDaysFromNow.plusHours(2))));
+                new FilterArrivalBeforeDeparture().filter(getSimpleFlightArray(threeDaysFromNow, threeDaysFromNow.plusHours(2))));
     }
 
     @Test
     public void testArrivalBeforeDeparture2() {
         List<Flight> flightList = getSimpleFlightArray(threeDaysFromNow, threeDaysFromNow.minusHours(6));
-        Assert.assertArrayEquals(new List[]{flightList}, new List[]{FlightFilter.arrivalBeforeDeparture(flightList)});
+        Assert.assertArrayEquals(new List[]{flightList}, new List[]{
+                new FilterArrivalBeforeDeparture().filter(flightList)});
+
     }
 
     @Test
     public void testlongTimeWaiting1() {
         Assert.assertEquals(new ArrayList<Flight>(),
-                FlightFilter.longTimeWaiting(getSimpleFlightArray(threeDaysFromNow, threeDaysFromNow.plusHours(2))));
+                new FilterLongTimeWaiting().filter(getSimpleFlightArray(threeDaysFromNow, threeDaysFromNow.plusHours(2))));
     }
 
     @Test
     public void testlongTimeWaiting2() {
         List<Flight> flightList = getLongFlightArray(threeDaysFromNow, threeDaysFromNow.minusHours(6));
-        Assert.assertArrayEquals(new List[]{flightList}, new List[]{FlightFilter.longTimeWaiting(flightList)});
+        Assert.assertArrayEquals(new List[]{flightList}, new List[]{
+                new FilterLongTimeWaiting().filter(flightList)});
     }
 
     private List<Flight> getLongFlightArray(LocalDateTime start, LocalDateTime finish) {
